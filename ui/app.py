@@ -75,10 +75,12 @@ with st.sidebar:
 # Backend Data Access
 @st.cache_resource
 def load_data():
-    data_path = os.path.join("..","data","processed_music_dataset2.csv")
+    # Use absolute path relative to the root of the project to avoid issues with different working directories
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_path = os.path.join(base_dir, "data", "processed_music_dataset2.csv")
     if not os.path.exists(data_path):
-        # Handle relative pathing when running from root
-        data_path = os.path.join("data","processed_music_dataset2.csv")
+        # Fallback to local relative if somehow absolute fails
+        data_path = os.path.join("..","data","processed_music_dataset2.csv")
     return pd.read_csv(data_path)
 
 df = load_data()

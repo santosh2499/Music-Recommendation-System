@@ -16,6 +16,8 @@ def get_time_cluster(selected_time=None):
 
     try:
         data = pd.read_csv(LOG_PATH)
+        if data.empty:
+            return None
     except (pd.errors.EmptyDataError, pd.errors.ParserError):
         return None
 
